@@ -1,0 +1,406 @@
+-- ============================================================================
+-- TABLE 1: COURT
+-- ============================================================================
+
+INSERT INTO COURT ("ID", "Location", "Level", "Pin_Code", "Email", "Phone_No") VALUES
+(1,  'Supreme Court of India, New Delhi',    'Supreme',  110001, 'registry@sci.gov.in',           '+91-11-23388922'),
+(2,  'Gujarat High Court, Ahmedabad',        'High',     380014, 'registrar@gujarathc.gov.in',    '+91-79-27542854'),
+(3,  'Ahmedabad District Court, Gujarat',   'District', 380001, 'ahmedabad.dc@guj.gov.in',       '+91-79-25506601'),
+(4,  'Surat District Court, Gujarat',       'District', 395003, 'surat.dc@guj.gov.in',           '+91-261-2423456'),
+(5,  'Delhi High Court, New Delhi',          'High',     110003, 'registrar@delhihc.gov.in',      '+91-11-23862700'),
+(6,  'Mumbai High Court, Maharashtra',       'High',     400032, 'registrar@bombayhc.gov.in',     '+91-22-22620191'),
+(7,  'Rajkot District Court, Gujarat',      'District', 360001, 'rajkot.dc@guj.gov.in',          '+91-281-2234567'),
+(8,  'Vadodara District Court, Gujarat',    'District', 390001, 'vadodara.dc@guj.gov.in',        '+91-265-2345678'),
+(9,  'Gandhinagar District Court, Gujarat', 'District', 382010, 'gandhinagar.dc@guj.gov.in',     '+91-79-23245678'),
+(10, 'Karnataka High Court, Bangalore',      'High',     560001, 'registrar@karhc.gov.in',        '+91-80-22195000');
+
+-- ============================================================================
+-- TABLE 2: JUDGE
+-- ============================================================================
+
+INSERT INTO JUDGE ("ID", "Name", "Gender", "DOB", "Email", "Status", "Phone_No", "Address", "Position", "Qualification", "Experience") VALUES
+(101, 'Justice Ramesh Kumar',    'Male',   '1965-03-15', 'rk.kumar@judiciary.in',    'Active',  '+91-9876543210', '45, Judges Colony, New Delhi',          'Judge',       'LLM', '25 years'),
+(102, 'Justice Priya Sharma',    'Female', '1970-07-22', 'p.sharma@judiciary.in',    'Active',  '+91-9876543211', '12, High Court Premises, Ahmedabad',    'Judge',       'LLM', '20 years'),
+(103, 'Justice Vikram Singh',    'Male',   '1968-11-08', 'v.singh@judiciary.in',     'Active',  '+91-9876543212', '8, Court Road, Ahmedabad',              'Judge',       'LLB', '22 years'),
+(104, 'Justice Anjali Mehta',    'Female', '1972-05-19', 'a.mehta@judiciary.in',     'Active',  '+91-9876543213', '34, Judicial Complex, Surat',           'Judge',       'LLM', '18 years'),
+(105, 'Justice Deepak Patel',    'Male',   '1969-09-30', 'd.patel@judiciary.in',     'Active',  '+91-9876543214', '23, District Court, Surat',             'Judge',       'LLB', '21 years'),
+(106, 'Justice Kavita Desai',    'Female', '1975-01-12', 'k.desai@judiciary.in',     'Active',  '+91-9876543215', '56, Court Premises, New Delhi',         'Judge',       'LLM', '15 years'),
+(107, 'Justice Rajesh Joshi',    'Male',   '1967-12-25', 'r.joshi@judiciary.in',     'Active',  '+91-9876543216', '78, High Court, Mumbai',                'Judge',       'LLB', '23 years'),
+(108, 'Justice Sunita Rao',      'Female', '1973-08-07', 's.rao@judiciary.in',       'Active',  '+91-9876543217', '90, District Court, Rajkot',            'Judge',       'LLM', '17 years'),
+(109, 'Justice Arun Verma',      'Male',   '1971-04-18', 'a.verma@judiciary.in',     'Retired', '+91-9876543218', '12, Retired Judges Colony, Delhi',      'Judge',       'LLB', '19 years'),
+(110, 'Justice Meera Iyer',      'Female', '1974-10-03', 'm.iyer@judiciary.in',      'Active',  '+91-9876543219', '45, Court Complex, Bangalore',          'Judge',       'LLM', '16 years'),
+(111, 'Ramesh Clerk',            'Male',   '1985-06-15', 'r.clerk@court.in',         'Active',  '+91-9876543220', '234, Staff Quarters, Ahmedabad',        'Clerk',       'BA',  '10 years'),
+(112, 'Sunita Stenographer',     'Female', '1988-03-20', 's.steno@court.in',         'Active',  '+91-9876543221', '567, Court Colony, Surat',              'Stenograph',  'B.Com', '8 years');
+
+-- ============================================================================
+-- TABLE 3: LAWYER
+-- ============================================================================
+
+INSERT INTO LAWYER ("BAR_Registration_No", "Qualification", "Specialization", "Phone_No", "Email", "Office_Address", "Experience", "Status") VALUES
+('GJ/2005/12345', 'LLM', 'Criminal Law',       '+91-9900000001', 'malhotra.associates@law.in',  'Malhotra Associates, Ahmedabad',   '19 years', 'Active'),
+('GJ/2015/23456', 'LLB', 'Civil Law',           '+91-9900000002', 'neha.kapoor@lawfirm.in',      'Kapoor & Co, Ahmedabad',           '9 years',  'Active'),
+('DL/2000/34567', 'LLM', 'Constitutional Law',  '+91-9900000003', 'suresh.reddy@legal.in',       'Reddy Legal, New Delhi',           '24 years', 'Active'),
+('GJ/2018/45678', 'LLB', 'Family Law',          '+91-9900000004', 'pooja.nair@advocates.in',     'Nair Advocates, Ahmedabad',        '6 years',  'Active'),
+('GJ/2008/56789', 'LLM', 'Corporate Law',       '+91-9900000005', 'amit.shah@lawchambers.in',    'Shah Law Chambers, Ahmedabad',     '16 years', 'Active'),
+('MH/2016/67890', 'LLB', 'Labour Law',          '+91-9900000006', 'ritu.agarwal@legal.in',       'Agarwal Legal, Mumbai',            '8 years',  'Active'),
+('DL/2003/78901', 'LLM', 'Criminal Law',        '+91-9900000007', 'vikrant.khanna@lawfirm.in',   'Khanna & Partners, New Delhi',     '21 years', 'Active'),
+('GJ/2019/89012', 'LLB', 'Civil Law',           '+91-9900000008', 'sneha.kulkarni@advocates.in', 'Kulkarni Advocates, Ahmedabad',    '5 years',  'Active'),
+('GJ/2006/90123', 'LLM', 'Corporate Law',       '+91-9900000009', 'rahul.sharma@legal.in',       'Sharma & Associates, Ahmedabad',   '18 years', 'Active'),
+('KA/2017/01234', 'LLB', 'Intellectual Property','+91-9900000010','priyanka.verma@lawchambers.in','Verma Law, Bangalore',            '7 years',  'Active'),
+('GJ/2004/11223', 'LLM', 'Criminal Law',        '+91-9900000011', 'sanjay.gupta@advocates.in',   'Gupta & Co, Ahmedabad',            '20 years', 'Active'),
+('GJ/2020/22334', 'LLB', 'Family Law',          '+91-9900000012', 'divya.pillai@lawfirm.in',     'Pillai Law, Ahmedabad',            '4 years',  'Active'),
+('MH/2007/33445', 'LLM', 'Civil Law',           '+91-9900000013', 'arjun.rao@legal.in',          'Rao Legal, Mumbai',                '17 years', 'Active'),
+('GJ/2021/44556', 'LLB', 'Corporate Law',       '+91-9900000014', 'simran.kaur@advocates.in',    'Kaur Advocates, Ahmedabad',        '3 years',  'Active'),
+('GJ/2005/55667', 'LLM', 'Criminal Law',        '+91-9900000015', 'manish.jain@lawchambers.in',  'Jain Law Chambers, Ahmedabad',     '19 years', 'Active');
+
+-- ============================================================================
+-- TABLE 4: LITIGANTS
+-- ============================================================================
+
+INSERT INTO LITIGANTS ("ID", "Name", "Type", "Address", "Phone", "Email", "Gender") VALUES
+('P001', 'Rajesh Patel',               'Individual', '123, Satellite Road, Ahmedabad, Gujarat',     '+91-9898989801', 'rajesh.patel@email.com',   'Male'),
+('P002', 'Meena Shah',                 'Individual', '456, CG Road, Ahmedabad, Gujarat',            '+91-9898989802', 'meena.shah@email.com',      'Female'),
+('P003', 'ABC Corporation Ltd',        'Company',    '789, GIDC Estate, Vadodara, Gujarat',         '+91-265-2345678','info@abccorp.com',           NULL),
+('P004', 'Amit Kumar',                 'Individual', '234, Connaught Place, New Delhi',             '+91-9898989803', 'amit.kumar@email.com',      'Male'),
+('P005', 'Priya Desai',                'Individual', '567, Law Garden, Ahmedabad, Gujarat',         '+91-9898989804', 'priya.desai@email.com',     'Female'),
+('P006', 'XYZ Industries Pvt Ltd',     'Company',    '890, Industrial Area, Surat, Gujarat',        '+91-261-2345678','contact@xyzind.com',         NULL),
+('P007', 'Suresh Mehta',               'Individual', '345, Navrangpura, Ahmedabad, Gujarat',        '+91-9898989805', 'suresh.mehta@email.com',    'Male'),
+('P008', 'Kavita Singh',               'Individual', '678, Marine Drive, Mumbai, Maharashtra',      '+91-9898989806', 'kavita.singh@email.com',    'Female'),
+('P009', 'DEF Builders & Developers',  'Company',    '901, SG Highway, Ahmedabad, Gujarat',         '+91-79-26851234','info@defbuilders.com',       NULL),
+('P010', 'Ravi Sharma',                'Individual', '123, MG Road, Bangalore, Karnataka',          '+91-9898989807', 'ravi.sharma@email.com',     'Male'),
+('P011', 'Anjali Joshi',               'Individual', '456, Satellite, Ahmedabad, Gujarat',          '+91-9898989808', 'anjali.joshi@email.com',    'Female'),
+('P012', 'Government of Gujarat',      'Government', 'Sachivalaya, Gandhinagar, Gujarat',           '+91-79-23250000','info@gujarat.gov.in',        NULL),
+('P013', 'Deepak Rao',                 'Individual', '789, Race Course, Rajkot, Gujarat',           '+91-9898989809', 'deepak.rao@email.com',      'Male'),
+('P014', 'Sunita Chopra',              'Individual', '234, Civil Lines, Surat, Gujarat',            '+91-9898989810', 'sunita.chopra@email.com',   'Female'),
+('P015', 'GHI Pharmaceuticals',        'Company',    '567, Industrial Estate, Vadodara, Gujarat',   '+91-265-3456789','contact@ghipharma.com',      NULL);
+
+-- ============================================================================
+-- TABLE 5: PANEL
+-- ============================================================================
+
+INSERT INTO PANEL ("ID", "type", form_date, dissolve_date) VALUES
+(1,  'Law Firm',                '2005-01-15', NULL),
+(2,  'Law Firm',                '2010-03-20', NULL),
+(3,  'NGO',                     '2015-07-10', NULL),
+(4,  'Legal Aid Society',       '2008-11-25', NULL),
+(5,  'Law Firm',                '2000-05-30', '2022-12-31'),
+(6,  'Bar Association',         '1995-09-12', NULL),
+(7,  'Legal Services Authority','2012-02-14', NULL),
+(8,  'Law Firm',                '2018-06-22', NULL),
+(9,  'Consumer Forum',          '2016-04-18', NULL),
+(10, 'Law Firm',                '2003-08-05', '2021-06-30'),
+(11, 'NGO',                     '2017-10-11', NULL),
+(12, 'Legal Research Foundation','2019-01-25',NULL),
+(13, 'Law Firm',                '1998-12-08', '2020-03-15'),
+(14, 'Mediation Center',        '2020-03-01', NULL),
+(15, 'Law Firm',                '2021-07-19', NULL);
+
+-- ============================================================================
+-- TABLE 6: CASE
+-- ============================================================================
+
+INSERT INTO "CASE" (case_no, "type", "Category", "Jurisdiction_Type", "Name", "Description", curr_status) VALUES
+('CR/2023/001',  'Criminal', 'Criminal',        'Original',  'State vs Rajesh Patel',              'Case of theft under section 379 IPC',           'Active'),
+('CIV/2023/045', 'Civil',    'Civil',           'Original',  'Meena Shah vs ABC Corporation',      'Property dispute regarding land ownership',      'Active'),
+('CR/2022/089',  'Criminal', 'Criminal',        'Appellate', 'State vs Amit Kumar',                'Murder case appeal from District Court',         'Active'),
+('CIV/2023/012', 'Civil',    'Civil',           'Original',  'Priya Desai vs XYZ Industries',      'Employment termination dispute',                 'Closed'),
+('CR/2021/034',  'Criminal', 'Criminal',        'Original',  'State vs Suresh Mehta',              'Fraud case under section 420 IPC',               'Active'),
+('CIV/2022/078', 'Civil',    'Family',          'Original',  'Kavita Singh vs Rakesh Singh',       'Divorce petition',                               'Active'),
+('CR/2023/056',  'Criminal', 'Criminal',        'Original',  'State vs DEF Builders',              'Construction regulation violation',              'Active'),
+('CIV/2021/099', 'Civil',    'Civil',           'Appellate', 'Ravi Sharma vs Municipality',        'Property tax dispute appeal',                    'Closed'),
+('CR/2020/123',  'Criminal', 'Criminal',        'Original',  'State vs Anjali Joshi',              'Cybercrime case',                                'Active'),
+('PIL/2023/003', 'Public',   'Public Interest', 'Original',  'Citizens Forum vs Government of Gujarat','Environmental pollution PIL',                 'Active'),
+('CIV/2023/034', 'Civil',    'Civil',           'Original',  'Deepak Rao vs GHI Pharmaceuticals',  'Medical negligence claim',                       'Active'),
+('CR/2022/045',  'Criminal', 'Criminal',        'Original',  'State vs Sunita Chopra',             'Forgery case',                                   'Closed'),
+('CIV/2019/012', 'Civil',    'Commercial',      'Original',  'ABC Corp vs XYZ Industries',         'Contract breach dispute',                        'Active'),
+('CR/2023/078',  'Criminal', 'Criminal',        'Original',  'State vs Unknown',                   'Hit and run accident case',                      'Active'),
+('CIV/2023/056', 'Civil',    'Family',          'Original',  'Rajesh Patel vs Meena Patel',        'Child custody dispute',                          'Active'),
+('SC/2020/100',  'Criminal', 'Criminal',        'Appellate', 'State vs Major Corporation',         'Landmark corruption case',                       'Closed'),
+('CIV/2022/089', 'Civil',    'Civil',           'Original',  'Senior Citizen vs Builder',          'Consumer protection case',                       'Active'),
+('CR/2021/067',  'Criminal', 'Criminal',        'Original',  'State vs Gang Members',              'Organized crime case',                           'Active'),
+('CIV/2023/023', 'Civil',    'Commercial',      'Original',  'Startup vs Investor',                'Investment agreement dispute',                   'Active'),
+('CR/2023/090',  'Criminal', 'Criminal',        'Original',  'State vs Drunk Driver',              'DUI case',                                       'Active');
+
+-- ============================================================================
+-- TABLE 7: WORKS_FOR  (Judge → Court assignments)
+-- ============================================================================
+
+INSERT INTO WORKS_FOR (judge_id, court_id) VALUES
+(101, 1),   -- Justice Ramesh Kumar at Supreme Court
+(102, 2),   -- Justice Priya Sharma at Gujarat High Court
+(103, 2),   -- Justice Vikram Singh at Gujarat High Court
+(104, 4),   -- Justice Anjali Mehta at Surat District Court
+(105, 4),   -- Justice Deepak Patel at Surat District Court
+(106, 5),   -- Justice Kavita Desai at Delhi High Court
+(107, 6),   -- Justice Rajesh Joshi at Mumbai High Court
+(108, 7),   -- Justice Sunita Rao at Rajkot District Court
+(109, 1),   -- Justice Arun Verma at Supreme Court (Retired)
+(110, 10),  -- Justice Meera Iyer at Karnataka High Court
+(102, 3),   -- Justice Priya Sharma also at Ahmedabad District Court
+(103, 3),   -- Justice Vikram Singh also at Ahmedabad District Court
+(105, 8),   -- Justice Deepak Patel also at Vadodara District Court
+(108, 9);   -- Justice Sunita Rao also at Gandhinagar District Court
+
+-- ============================================================================
+-- TABLE 8: HANDLES  (Court → Case assignments)
+-- ============================================================================
+
+INSERT INTO HANDLES (court_id, case_no) VALUES
+(3, 'CR/2023/001'),
+(2, 'CIV/2023/045'),
+(1, 'CR/2022/089'),
+(3, 'CIV/2023/012'),
+(3, 'CR/2021/034'),
+(6, 'CIV/2022/078'),
+(3, 'CR/2023/056'),
+(5, 'CIV/2021/099'),
+(3, 'CR/2020/123'),
+(2, 'PIL/2023/003'),
+(4, 'CIV/2023/034'),
+(4, 'CR/2022/045'),
+(2, 'CIV/2019/012'),
+(3, 'CR/2023/078'),
+(3, 'CIV/2023/056'),
+(1, 'SC/2020/100'),
+(7, 'CIV/2022/089'),
+(3, 'CR/2021/067'),
+(4, 'CIV/2023/023'),
+(3, 'CR/2023/090');
+
+-- ============================================================================
+-- TABLE 9: HEARING
+-- ============================================================================
+
+INSERT INTO HEARING ("Hearing_No", case_no, "Type", "Status") VALUES
+-- CR/2023/001
+(1, 'CR/2023/001', 'Initial',   'Completed'),
+(2, 'CR/2023/001', 'Evidence',  'Completed'),
+(3, 'CR/2023/001', 'Arguments', 'Scheduled'),
+-- CIV/2023/045
+(1, 'CIV/2023/045', 'Initial',   'Completed'),
+(2, 'CIV/2023/045', 'Mediation', 'Completed'),
+(3, 'CIV/2023/045', 'Evidence',  'Completed'),
+(4, 'CIV/2023/045', 'Arguments', 'Completed'),
+(5, 'CIV/2023/045', 'Final',     'Scheduled'),
+-- CR/2022/089
+(1, 'CR/2022/089', 'Initial',   'Completed'),
+(2, 'CR/2022/089', 'Evidence',  'Completed'),
+(3, 'CR/2022/089', 'Arguments', 'Completed'),
+(4, 'CR/2022/089', 'Arguments', 'Completed'),
+(5, 'CR/2022/089', 'Final',     'Completed'),
+(6, 'CR/2022/089', 'Review',    'Scheduled'),
+-- CIV/2023/012
+(1, 'CIV/2023/012', 'Initial',  'Completed'),
+(2, 'CIV/2023/012', 'Evidence', 'Completed'),
+(3, 'CIV/2023/012', 'Final',    'Completed'),
+-- CR/2021/034
+(1, 'CR/2021/034', 'Initial',   'Completed'),
+(2, 'CR/2021/034', 'Evidence',  'Completed'),
+(3, 'CR/2021/034', 'Evidence',  'Completed'),
+(4, 'CR/2021/034', 'Evidence',  'Completed'),
+(5, 'CR/2021/034', 'Arguments', 'Completed'),
+(6, 'CR/2021/034', 'Arguments', 'Scheduled'),
+-- CIV/2022/078
+(1, 'CIV/2022/078', 'Initial',   'Completed'),
+(2, 'CIV/2022/078', 'Mediation', 'Failed'),
+(3, 'CIV/2022/078', 'Evidence',  'Scheduled'),
+-- CR/2023/056
+(1, 'CR/2023/056', 'Initial',  'Completed'),
+(2, 'CR/2023/056', 'Evidence', 'Scheduled'),
+-- CIV/2021/099
+(1, 'CIV/2021/099', 'Initial',  'Completed'),
+(2, 'CIV/2021/099', 'Evidence', 'Completed'),
+(3, 'CIV/2021/099', 'Final',    'Completed'),
+-- CR/2020/123
+(1,  'CR/2020/123', 'Initial',   'Completed'),
+(2,  'CR/2020/123', 'Evidence',  'Completed'),
+(3,  'CR/2020/123', 'Evidence',  'Completed'),
+(4,  'CR/2020/123', 'Evidence',  'Completed'),
+(5,  'CR/2020/123', 'Evidence',  'Completed'),
+(6,  'CR/2020/123', 'Evidence',  'Completed'),
+(7,  'CR/2020/123', 'Evidence',  'Completed'),
+(8,  'CR/2020/123', 'Arguments', 'Completed'),
+(9,  'CR/2020/123', 'Arguments', 'Completed'),
+(10, 'CR/2020/123', 'Arguments', 'Completed'),
+(11, 'CR/2020/123', 'Final',     'Scheduled'),
+-- PIL/2023/003
+(1, 'PIL/2023/003', 'Initial',  'Completed'),
+(2, 'PIL/2023/003', 'Evidence', 'Scheduled'),
+-- CIV/2023/034
+(1, 'CIV/2023/034', 'Initial',   'Completed'),
+(2, 'CIV/2023/034', 'Evidence',  'Completed'),
+(3, 'CIV/2023/034', 'Arguments', 'Scheduled'),
+-- CR/2022/045
+(1, 'CR/2022/045', 'Initial',  'Completed'),
+(2, 'CR/2022/045', 'Evidence', 'Completed'),
+(3, 'CR/2022/045', 'Final',    'Completed'),
+-- CIV/2019/012
+(1,  'CIV/2019/012', 'Initial',   'Completed'),
+(2,  'CIV/2019/012', 'Evidence',  'Completed'),
+(3,  'CIV/2019/012', 'Evidence',  'Completed'),
+(4,  'CIV/2019/012', 'Evidence',  'Completed'),
+(5,  'CIV/2019/012', 'Evidence',  'Completed'),
+(6,  'CIV/2019/012', 'Arguments', 'Completed'),
+(7,  'CIV/2019/012', 'Arguments', 'Completed'),
+(8,  'CIV/2019/012', 'Arguments', 'Completed'),
+(9,  'CIV/2019/012', 'Arguments', 'Completed'),
+(10, 'CIV/2019/012', 'Arguments', 'Completed'),
+(11, 'CIV/2019/012', 'Final',     'Scheduled'),
+-- CR/2023/078
+(1, 'CR/2023/078', 'Initial', 'Completed'),
+-- CIV/2023/056
+(1, 'CIV/2023/056', 'Initial',   'Completed'),
+(2, 'CIV/2023/056', 'Mediation', 'Scheduled'),
+-- SC/2020/100
+(1, 'SC/2020/100', 'Initial',   'Completed'),
+(2, 'SC/2020/100', 'Evidence',  'Completed'),
+(3, 'SC/2020/100', 'Evidence',  'Completed'),
+(4, 'SC/2020/100', 'Evidence',  'Completed'),
+(5, 'SC/2020/100', 'Arguments', 'Completed'),
+(6, 'SC/2020/100', 'Arguments', 'Completed'),
+(7, 'SC/2020/100', 'Final',     'Completed'),
+-- CIV/2022/089
+(1, 'CIV/2022/089', 'Initial',   'Completed'),
+(2, 'CIV/2022/089', 'Evidence',  'Completed'),
+(3, 'CIV/2022/089', 'Arguments', 'Scheduled'),
+-- CR/2021/067
+(1, 'CR/2021/067', 'Initial',   'Completed'),
+(2, 'CR/2021/067', 'Evidence',  'Completed'),
+(3, 'CR/2021/067', 'Evidence',  'Completed'),
+(4, 'CR/2021/067', 'Evidence',  'Completed'),
+(5, 'CR/2021/067', 'Arguments', 'Scheduled'),
+-- CIV/2023/023
+(1, 'CIV/2023/023', 'Initial',   'Completed'),
+(2, 'CIV/2023/023', 'Mediation', 'Completed'),
+(3, 'CIV/2023/023', 'Evidence',  'Scheduled'),
+-- CR/2023/090
+(1, 'CR/2023/090', 'Initial',  'Completed'),
+(2, 'CR/2023/090', 'Evidence', 'Scheduled');
+
+-- ============================================================================
+-- TABLE 10: HEARD_BY  (Hearing → Panel assignments)
+-- ============================================================================
+
+INSERT INTO HEARD_BY (case_no, hearing_no, panel_id) VALUES
+-- Supreme Court cases
+('CR/2022/089', 1, 101), ('CR/2022/089', 1, 109),
+('CR/2022/089', 2, 101), ('CR/2022/089', 2, 109),
+('CR/2022/089', 3, 101), ('CR/2022/089', 3, 109),
+-- Gujarat High Court
+('CIV/2023/045', 1, 102),
+('CIV/2023/045', 2, 102),
+('CIV/2023/045', 3, 102), ('CIV/2023/045', 3, 103),
+('CIV/2023/045', 4, 102), ('CIV/2023/045', 4, 103),
+('PIL/2023/003', 1, 102), ('PIL/2023/003', 1, 103),
+('CIV/2019/012', 1, 102),
+('CIV/2019/012', 2, 102),
+('CIV/2019/012', 3, 102),
+('CIV/2019/012', 4, 102),
+('CIV/2019/012', 5, 102), ('CIV/2019/012', 5, 103),
+-- Ahmedabad District Court
+('CR/2023/001', 1, 102), ('CR/2023/001', 2, 102), ('CR/2023/001', 3, 102),
+('CIV/2023/012', 1, 103), ('CIV/2023/012', 2, 103), ('CIV/2023/012', 3, 103),
+('CR/2021/034', 1, 102), ('CR/2021/034', 2, 102), ('CR/2021/034', 3, 102),
+('CR/2021/034', 4, 102), ('CR/2021/034', 5, 102),
+('CR/2023/056', 1, 103),
+('CR/2020/123', 1,  102), ('CR/2020/123', 2,  102), ('CR/2020/123', 3,  102),
+('CR/2020/123', 4,  102), ('CR/2020/123', 5,  102), ('CR/2020/123', 6,  102),
+('CR/2020/123', 7,  102), ('CR/2020/123', 8,  102), ('CR/2020/123', 9,  102),
+('CR/2020/123', 10, 102),
+('CR/2023/078', 1, 103),
+('CIV/2023/056', 1, 102),
+('CR/2021/067', 1, 103), ('CR/2021/067', 2, 103),
+('CR/2021/067', 3, 103), ('CR/2021/067', 4, 103),
+('CR/2023/090', 1, 102),
+-- Surat District Court
+('CIV/2023/034', 1, 104), ('CIV/2023/034', 2, 104),
+('CR/2022/045',  1, 105), ('CR/2022/045',  2, 105), ('CR/2022/045', 3, 105),
+('CIV/2023/023', 1, 104), ('CIV/2023/023', 2, 104),
+-- Rajkot District Court
+('CIV/2022/089', 1, 108), ('CIV/2022/089', 2, 108),
+-- Supreme Court landmark
+('SC/2020/100', 1, 101),
+('SC/2020/100', 2, 101),
+('SC/2020/100', 3, 101), ('SC/2020/100', 3, 109),
+('SC/2020/100', 4, 101), ('SC/2020/100', 4, 109),
+('SC/2020/100', 5, 101), ('SC/2020/100', 5, 109);
+
+-- ============================================================================
+-- TABLE 11: IS_PRECEDENT  (Case → Precedent case references)
+-- ============================================================================
+
+INSERT INTO IS_PRECEDENT (case_no, precedent_case_no) VALUES
+('CR/2023/001',  'SC/2020/100'),
+('CR/2022/089',  'SC/2020/100'),
+('CR/2021/034',  'SC/2020/100'),
+('CIV/2023/045', 'CIV/2019/012'),
+('CIV/2023/034', 'CIV/2021/099'),
+('CIV/2022/089', 'CIV/2021/099'),
+('CR/2021/067',  'SC/2020/100'),
+('CR/2021/067',  'CR/2022/089'),
+('CIV/2023/023', 'CIV/2019/012'),
+('CIV/2023/023', 'CIV/2021/099'),
+('CR/2020/123',  'SC/2020/100'),
+('PIL/2023/003', 'SC/2020/100'),
+('CR/2022/089',  'CR/2021/034'),
+('CIV/2019/012', 'CIV/2021/099');
+
+-- ============================================================================
+-- TABLE 12: CASE_STATUS
+-- ============================================================================
+
+INSERT INTO CASE_STATUS ("ID", status, curr_stage, is_dormant, dormant_reason, case_no) VALUES
+('CS001', 'Open',  'Arguments', FALSE, NULL,                                                        'CR/2023/001'),
+('CS002', 'Open',  'Final',     FALSE, NULL,                                                        'CIV/2023/045'),
+('CS003', 'Open',  'Review',    FALSE, NULL,                                                        'CR/2022/089'),
+('CS004', 'Close', 'Judgment',  FALSE, NULL,                                                        'CIV/2023/012'),
+('CS005', 'Open',  'Arguments', TRUE,  'Waiting for expert witness from forensics department',      'CR/2021/034'),
+('CS006', 'Open',  'Evidence',  FALSE, NULL,                                                        'CIV/2022/078'),
+('CS007', 'Open',  'Evidence',  FALSE, NULL,                                                        'CR/2023/056'),
+('CS008', 'Close', 'Judgment',  FALSE, NULL,                                                        'CIV/2021/099'),
+('CS009', 'Open',  'Final',     TRUE,  'Pending digital evidence from cybercrime cell',             'CR/2020/123'),
+('CS010', 'Open',  'Evidence',  FALSE, NULL,                                                        'PIL/2023/003'),
+('CS011', 'Open',  'Arguments', FALSE, NULL,                                                        'CIV/2023/034'),
+('CS012', 'Close', 'Judgment',  FALSE, NULL,                                                        'CR/2022/045'),
+('CS013', 'Open',  'Final',     TRUE,  'One party absconding, non-bailable warrant issued',        'CIV/2019/012'),
+('CS014', 'Open',  'Evidence',  TRUE,  'Accused absconding, warrant issued',                       'CR/2023/078'),
+('CS015', 'Open',  'Mediation', FALSE, NULL,                                                        'CIV/2023/056'),
+('CS016', 'Close', 'Judgment',  FALSE, NULL,                                                        'SC/2020/100'),
+('CS017', 'Open',  'Arguments', FALSE, NULL,                                                        'CIV/2022/089'),
+('CS018', 'Open',  'Arguments', TRUE,  'Multiple accused, some yet to be apprehended',             'CR/2021/067'),
+('CS019', 'Open',  'Evidence',  FALSE, NULL,                                                        'CIV/2023/023'),
+('CS020', 'Open',  'Evidence',  FALSE, NULL,                                                        'CR/2023/090');
+
+-- ============================================================================
+-- VERIFICATION QUERIES (uncomment to run)
+-- ============================================================================
+
+-- SELECT 'COURT'          AS Table_Name, COUNT(*) AS Record_Count FROM COURT
+-- UNION ALL SELECT 'JUDGE',          COUNT(*) FROM JUDGE
+-- UNION ALL SELECT 'LAWYER',         COUNT(*) FROM LAWYER
+-- UNION ALL SELECT 'LITIGANTS',      COUNT(*) FROM LITIGANTS
+-- UNION ALL SELECT 'PANEL',          COUNT(*) FROM PANEL
+-- UNION ALL SELECT 'CASE',           COUNT(*) FROM "CASE"
+-- UNION ALL SELECT 'WORKS_FOR',      COUNT(*) FROM WORKS_FOR
+-- UNION ALL SELECT 'HANDLES',        COUNT(*) FROM HANDLES
+-- UNION ALL SELECT 'HEARING',        COUNT(*) FROM HEARING
+-- UNION ALL SELECT 'HEARD_BY',       COUNT(*) FROM HEARD_BY
+-- UNION ALL SELECT 'IS_PRECEDENT',   COUNT(*) FROM IS_PRECEDENT
+-- UNION ALL SELECT 'CASE_STATUS',    COUNT(*) FROM CASE_STATUS;
+
+-- ============================================================================
+-- SUMMARY OF INSERTED DATA
+-- ============================================================================
+-- Courts:              10  (1 Supreme, 4 High, 5 District)
+-- Judges:              12  (10 judicial, 2 support staff)
+-- Lawyers:             15  (9 Senior, 6 Junior)
+-- Litigants:           15  (10 individuals, 5 organisations)
+-- Panels:              15  (12 active, 3 dissolved)
+-- Cases:               20  (Criminal: 10, Civil: 9, PIL: 1)
+-- Works_For:           14  judge-court assignments
+-- Handles:             20  court-case assignments
+-- Hearings:            89  total across all cases
+-- Heard_By:            77  panel-hearing assignments
+-- Is_Precedent:        14  precedent references
+-- Case_Status:         20  status records
+-- ============================================================================
