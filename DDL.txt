@@ -1,0 +1,239 @@
+CREATE SCHEMA "public";
+CREATE TABLE "CASE" (
+	"case_no" varchar(15),
+	"type" varchar(20) NOT NULL,
+	"Category" varchar(30) NOT NULL,
+	"Jurisdiction_Type" varchar(30) NOT NULL,
+	"Name" varchar(100) NOT NULL,
+	"Description" text,
+	"curr_status" varchar(20) NOT NULL,
+	CONSTRAINT "pk_case" PRIMARY KEY("case_no")
+);
+CREATE TABLE "CASE_STATUS" (
+	"Status_ID" varchar(15),
+	"case_no" varchar(15) NOT NULL,
+	"status" varchar(20) NOT NULL,
+	"curr_stage" varchar(30) NOT NULL,
+	"is_dormant" boolean NOT NULL,
+	"dormant_reason" text,
+	CONSTRAINT "pk_case_status" PRIMARY KEY("Status_ID")
+);
+CREATE TABLE "COURT" (
+	"ID" integer,
+	"Location" text NOT NULL,
+	"Level" varchar(20) NOT NULL,
+	"Pin_Code" integer NOT NULL,
+	"Email" varchar(50) NOT NULL CONSTRAINT "uq_court_email" UNIQUE,
+	"Phone_No" varchar(15) NOT NULL CONSTRAINT "uq_court_phone" UNIQUE,
+	CONSTRAINT "pk_court" PRIMARY KEY("ID")
+);
+CREATE TABLE "DOCUMENT_REPO" (
+	"ID" varchar(20),
+	"Name" varchar(50) NOT NULL,
+	"Type" varchar(20) NOT NULL,
+	"Link" text NOT NULL,
+	"BAR_Registration_No" varchar(20),
+	"case_no" varchar(15),
+	CONSTRAINT "pk_document_repo" PRIMARY KEY("ID")
+);
+CREATE TABLE "EVIDENCE" (
+	"ID" integer,
+	"Type" varchar(20) NOT NULL,
+	"Description" text,
+	"Submission_date" date NOT NULL,
+	"Verified_Status" boolean NOT NULL,
+	"case_no" varchar(15) NOT NULL,
+	CONSTRAINT "pk_evidence" PRIMARY KEY("ID")
+);
+CREATE TABLE "FILING_DETAILS" (
+	"ID" varchar(15),
+	"Registration_date" date NOT NULL,
+	"filing_mode" varchar(50) NOT NULL,
+	"case_no" varchar(15) NOT NULL,
+	CONSTRAINT "pk_filing_details" PRIMARY KEY("ID")
+);
+CREATE TABLE "FORMS" (
+	"judge_id" integer,
+	"panel_id" integer,
+	CONSTRAINT "pk_forms" PRIMARY KEY("judge_id","panel_id")
+);
+CREATE TABLE "HANDLED_BY" (
+	"BAR_Registration_No" varchar(20),
+	"case_no" varchar(15),
+	CONSTRAINT "pk_handled_by" PRIMARY KEY("BAR_Registration_No","case_no")
+);
+CREATE TABLE "HANDLES" (
+	"court_id" integer,
+	"case_no" varchar(15),
+	CONSTRAINT "pk_handles" PRIMARY KEY("court_id","case_no")
+);
+CREATE TABLE "HEARD_BY" (
+	"hearing_no" integer,
+	"panel_id" integer,
+	CONSTRAINT "pk_heard_by" PRIMARY KEY("hearing_no","panel_id")
+);
+CREATE TABLE "HEARING" (
+	"Hearing_No" integer,
+	"case_no" varchar(15) NOT NULL,
+	"court_id" integer NOT NULL,
+	"Type" varchar(20) NOT NULL,
+	"Status" varchar(20) NOT NULL,
+	CONSTRAINT "pk_hearing" PRIMARY KEY("Hearing_No")
+);
+CREATE TABLE "HEARING_TRANSCRIPT" (
+	"ID" integer,
+	"Hearing_no" integer,
+	"Text" text NOT NULL,
+	"recorded_by" integer NOT NULL,
+	"court_id" integer NOT NULL,
+	"Time_stamp" time NOT NULL,
+	CONSTRAINT "pk_hearing_transcript" PRIMARY KEY("Hearing_no","ID")
+);
+CREATE TABLE "IS_PRECEDENT" (
+	"case_no" varchar(15),
+	"precedent_case_no" varchar(15),
+	CONSTRAINT "pk_is_precedent" PRIMARY KEY("case_no","precedent_case_no")
+);
+CREATE TABLE "JUDGE" (
+	"ID" integer,
+	"Name" varchar(100) NOT NULL,
+	"Gender" varchar(15) NOT NULL,
+	"DOB" date NOT NULL,
+	"Email" varchar(50) NOT NULL CONSTRAINT "uq_judge_email" UNIQUE,
+	"Status" varchar(20) NOT NULL,
+	"Phone_No" varchar(15) NOT NULL CONSTRAINT "uq_judge_phone" UNIQUE,
+	"Address" text,
+	"Position" varchar(30) NOT NULL,
+	"Qualification" varchar(50) NOT NULL,
+	"Experience" varchar(50),
+	CONSTRAINT "pk_judge" PRIMARY KEY("ID")
+);
+CREATE TABLE "JUDGEMENT" (
+	"ID" varchar(25),
+	"Decision_date" date NOT NULL,
+	"verdict" text NOT NULL,
+	"compensations" text,
+	"sentence_length_punishment" text,
+	"remark" text,
+	"case_no" varchar(15) NOT NULL,
+	"panel_id" integer,
+	CONSTRAINT "pk_judgement" PRIMARY KEY("ID")
+);
+CREATE TABLE "LAWYER" (
+	"BAR_Registration_No" varchar(20),
+	"Qualification" varchar(100) NOT NULL,
+	"Specialization" varchar(100) NOT NULL,
+	"Phone_No" varchar(15) NOT NULL CONSTRAINT "uq_lawyer_phone" UNIQUE,
+	"Email" varchar(50) NOT NULL CONSTRAINT "uq_lawyer_email" UNIQUE,
+	"Office_Address" text,
+	"Experience" text,
+	"Status" varchar(20) NOT NULL,
+	CONSTRAINT "pk_lawyer" PRIMARY KEY("BAR_Registration_No")
+);
+CREATE TABLE "LITIGANTS" (
+	"ID" varchar(20),
+	"Name" varchar(100) NOT NULL,
+	"Type" varchar(30) NOT NULL,
+	"Address" text,
+	"Phone" varchar(15) NOT NULL CONSTRAINT "uq_litigants_phone" UNIQUE,
+	"Email" varchar(50) NOT NULL CONSTRAINT "uq_litigants_email" UNIQUE,
+	"Gender" varchar(10),
+	CONSTRAINT "pk_litigants" PRIMARY KEY("ID")
+);
+CREATE TABLE "PANEL" (
+	"ID" integer,
+	"type" varchar(30) NOT NULL,
+	"form_date" date NOT NULL,
+	"dissolve_date" date,
+	CONSTRAINT "pk_panel" PRIMARY KEY("ID")
+);
+CREATE TABLE "PARTICIPATES_IN" (
+	"litigant_id" varchar(20),
+	"case_no" varchar(15),
+	CONSTRAINT "pk_participates_in" PRIMARY KEY("litigant_id","case_no")
+);
+CREATE TABLE "query_logs" (
+	"id" serial PRIMARY KEY,
+	"query" text NOT NULL,
+	"status" varchar(255) NOT NULL,
+	"execution_time_ms" integer NOT NULL,
+	"executed_at" timestamp DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "saved_queries" (
+	"id" serial PRIMARY KEY,
+	"name" varchar(255) NOT NULL,
+	"query" text NOT NULL,
+	"created_at" timestamp DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "WARRANT" (
+	"ID" varchar(15),
+	"Type" varchar(20) NOT NULL,
+	"Issue_Date" timestamp NOT NULL,
+	"Exp_date" timestamp,
+	"Status" varchar(20) NOT NULL,
+	"case_no" varchar(15) NOT NULL,
+	CONSTRAINT "pk_warrant" PRIMARY KEY("ID")
+);
+CREATE TABLE "WORKS_FOR" (
+	"judge_id" integer,
+	"court_id" integer,
+	CONSTRAINT "pk_works_for" PRIMARY KEY("judge_id","court_id")
+);
+CREATE UNIQUE INDEX "pk_case" ON "CASE" ("case_no");
+CREATE UNIQUE INDEX "pk_case_status" ON "CASE_STATUS" ("Status_ID");
+CREATE UNIQUE INDEX "pk_court" ON "COURT" ("ID");
+CREATE UNIQUE INDEX "uq_court_email" ON "COURT" ("Email");
+CREATE UNIQUE INDEX "uq_court_phone" ON "COURT" ("Phone_No");
+CREATE UNIQUE INDEX "pk_document_repo" ON "DOCUMENT_REPO" ("ID");
+CREATE UNIQUE INDEX "pk_evidence" ON "EVIDENCE" ("ID");
+CREATE UNIQUE INDEX "pk_filing_details" ON "FILING_DETAILS" ("ID");
+CREATE UNIQUE INDEX "pk_forms" ON "FORMS" ("judge_id","panel_id");
+CREATE UNIQUE INDEX "pk_handled_by" ON "HANDLED_BY" ("BAR_Registration_No","case_no");
+CREATE UNIQUE INDEX "pk_handles" ON "HANDLES" ("court_id","case_no");
+CREATE UNIQUE INDEX "pk_heard_by" ON "HEARD_BY" ("hearing_no","panel_id");
+CREATE UNIQUE INDEX "pk_hearing" ON "HEARING" ("Hearing_No");
+CREATE UNIQUE INDEX "pk_hearing_transcript" ON "HEARING_TRANSCRIPT" ("Hearing_no","ID");
+CREATE UNIQUE INDEX "pk_is_precedent" ON "IS_PRECEDENT" ("case_no","precedent_case_no");
+CREATE UNIQUE INDEX "pk_judge" ON "JUDGE" ("ID");
+CREATE UNIQUE INDEX "uq_judge_email" ON "JUDGE" ("Email");
+CREATE UNIQUE INDEX "uq_judge_phone" ON "JUDGE" ("Phone_No");
+CREATE UNIQUE INDEX "pk_judgement" ON "JUDGEMENT" ("ID");
+CREATE UNIQUE INDEX "pk_lawyer" ON "LAWYER" ("BAR_Registration_No");
+CREATE UNIQUE INDEX "uq_lawyer_email" ON "LAWYER" ("Email");
+CREATE UNIQUE INDEX "uq_lawyer_phone" ON "LAWYER" ("Phone_No");
+CREATE UNIQUE INDEX "pk_litigants" ON "LITIGANTS" ("ID");
+CREATE UNIQUE INDEX "uq_litigants_email" ON "LITIGANTS" ("Email");
+CREATE UNIQUE INDEX "uq_litigants_phone" ON "LITIGANTS" ("Phone");
+CREATE UNIQUE INDEX "pk_panel" ON "PANEL" ("ID");
+CREATE UNIQUE INDEX "pk_participates_in" ON "PARTICIPATES_IN" ("litigant_id","case_no");
+CREATE UNIQUE INDEX "query_logs_pkey" ON "query_logs" ("id");
+CREATE UNIQUE INDEX "saved_queries_pkey" ON "saved_queries" ("id");
+CREATE UNIQUE INDEX "pk_warrant" ON "WARRANT" ("ID");
+CREATE UNIQUE INDEX "pk_works_for" ON "WORKS_FOR" ("judge_id","court_id");
+ALTER TABLE "CASE_STATUS" ADD CONSTRAINT "fk_case_status_case" FOREIGN KEY ("case_no") REFERENCES "CASE"("case_no") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "DOCUMENT_REPO" ADD CONSTRAINT "fk_docrepo_lawyer" FOREIGN KEY ("BAR_Registration_No") REFERENCES "LAWYER"("BAR_Registration_No") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "DOCUMENT_REPO" ADD CONSTRAINT "fk_document_repo_case" FOREIGN KEY ("case_no") REFERENCES "CASE"("case_no") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "EVIDENCE" ADD CONSTRAINT "fk_evidence_case" FOREIGN KEY ("case_no") REFERENCES "CASE"("case_no") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "FILING_DETAILS" ADD CONSTRAINT "fk_filing_case" FOREIGN KEY ("case_no") REFERENCES "CASE"("case_no") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "FORMS" ADD CONSTRAINT "fk_forms_judge" FOREIGN KEY ("judge_id") REFERENCES "JUDGE"("ID") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "FORMS" ADD CONSTRAINT "fk_forms_panel" FOREIGN KEY ("panel_id") REFERENCES "PANEL"("ID") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "HANDLED_BY" ADD CONSTRAINT "fk_hb_case" FOREIGN KEY ("case_no") REFERENCES "CASE"("case_no") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "HANDLED_BY" ADD CONSTRAINT "fk_hb_lawyer" FOREIGN KEY ("BAR_Registration_No") REFERENCES "LAWYER"("BAR_Registration_No") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "HANDLES" ADD CONSTRAINT "fk_han_case" FOREIGN KEY ("case_no") REFERENCES "CASE"("case_no") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "HANDLES" ADD CONSTRAINT "fk_han_court" FOREIGN KEY ("court_id") REFERENCES "COURT"("ID") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "HEARD_BY" ADD CONSTRAINT "fk_hb_hearing" FOREIGN KEY ("hearing_no") REFERENCES "HEARING"("Hearing_No") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "HEARD_BY" ADD CONSTRAINT "fk_hb_panel" FOREIGN KEY ("panel_id") REFERENCES "PANEL"("ID") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "HEARING" ADD CONSTRAINT "fk_hearing_case" FOREIGN KEY ("case_no") REFERENCES "CASE"("case_no") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "HEARING" ADD CONSTRAINT "fk_hearing_court" FOREIGN KEY ("court_id") REFERENCES "COURT"("ID") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "HEARING_TRANSCRIPT" ADD CONSTRAINT "fk_ht_court" FOREIGN KEY ("court_id") REFERENCES "COURT"("ID") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "HEARING_TRANSCRIPT" ADD CONSTRAINT "fk_ht_hearing" FOREIGN KEY ("Hearing_no") REFERENCES "HEARING"("Hearing_No") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "HEARING_TRANSCRIPT" ADD CONSTRAINT "fk_ht_judge" FOREIGN KEY ("recorded_by") REFERENCES "JUDGE"("ID") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "IS_PRECEDENT" ADD CONSTRAINT "fk_ip_case" FOREIGN KEY ("case_no") REFERENCES "CASE"("case_no") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "IS_PRECEDENT" ADD CONSTRAINT "fk_ip_precedent" FOREIGN KEY ("precedent_case_no") REFERENCES "CASE"("case_no") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "JUDGEMENT" ADD CONSTRAINT "fk_judgement_case" FOREIGN KEY ("case_no") REFERENCES "CASE"("case_no") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "JUDGEMENT" ADD CONSTRAINT "fk_judgement_panel" FOREIGN KEY ("panel_id") REFERENCES "PANEL"("ID") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "PARTICIPATES_IN" ADD CONSTRAINT "fk_pi_case" FOREIGN KEY ("case_no") REFERENCES "CASE"("case_no") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "PARTICIPATES_IN" ADD CONSTRAINT "fk_pi_litigant" FOREIGN KEY ("litigant_id") REFERENCES "LITIGANTS"("ID") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "WARRANT" ADD CONSTRAINT "fk_warrant_case" FOREIGN KEY ("case_no") REFERENCES "CASE"("case_no") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "WORKS_FOR" ADD CONSTRAINT "fk_wf_court" FOREIGN KEY ("court_id") REFERENCES "COURT"("ID") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "WORKS_FOR" ADD CONSTRAINT "fk_wf_judge" FOREIGN KEY ("judge_id") REFERENCES "JUDGE"("ID") ON DELETE CASCADE ON UPDATE CASCADE;
