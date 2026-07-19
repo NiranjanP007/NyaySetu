@@ -1,0 +1,273 @@
+-- ==============================================
+-- QUERY 1:
+-- List all cases that are currently active and belong to 'Criminal' category
+SELECT case_no, "Name", "type", "Jurisdiction_Type", "Description"
+FROM "CASE"
+WHERE curr_status = 'Active' AND "Category" = 'Criminal';
+
+
+-- ==============================================
+-- QUERY 2:
+-- List all judges (ID, Name, Position) who have 'LLM' qualification
+SELECT "ID", "Name", "Position", "Qualification", "Experience"
+FROM JUDGE
+WHERE "Qualification" = 'LLM' AND "Position" = 'Judge';
+
+
+-- ==============================================
+-- QUERY 3:
+-- List all hearings (Hearing_No, Type, Status) for case 'CR/2024/001'
+SELECT "Hearing_No", "Type", "Status"
+FROM HEARING
+WHERE case_no = 'CR/2024/001';
+
+
+-- ==============================================
+-- QUERY 4:
+-- List all cases with their assigned court details
+SELECT c.case_no, c."Name" AS case_name, c."Category",
+       ct."Location" AS court_location, ct."Level" AS court_level
+FROM "CASE" c
+JOIN HANDLES h  ON c.case_no  = h.case_no
+JOIN COURT   ct ON h.court_id = ct."ID";
+
+
+-- ==============================================
+-- QUERY 5:
+-- List all judges working in court with ID = 5
+SELECT j."ID", j."Name", j."Experience", j."Position"
+FROM JUDGE j
+JOIN WORKS_FOR wf ON j."ID" = wf.judge_id
+WHERE wf.court_id = 5;
+
+
+-- ==============================================
+-- QUERY 6:
+-- List all lawyers registered in 'Gujarat' bar
+SELECT "BAR_Registration_No", "Qualification", "Specialization", "Status"
+FROM LAWYER
+WHERE "BAR_Registration_No" LIKE 'GJ%';
+
+
+-- ==============================================
+-- QUERY 7:
+-- List all cases that cite precedent case 'SC/2020/100'
+SELECT c.case_no, c."Name", c."Category", ip.precedent_case_no
+FROM "CASE" c
+JOIN IS_PRECEDENT ip ON c.case_no = ip.case_no
+WHERE ip.precedent_case_no = 'SC/2020/100';
+
+
+-- ==============================================
+-- QUERY 8:
+-- Count the number of cases in each category
+SELECT "Category", COUNT(case_no) AS case_count
+FROM "CASE"
+GROUP BY "Category"
+ORDER BY case_count DESC;
+
+
+-- ==============================================
+-- QUERY 9:
+-- Count how many cases are handled by each court level
+SELECT ct."Level", COUNT(h.case_no) AS case_count
+FROM COURT ct
+LEFT JOIN HANDLES h ON ct."ID" = h.court_id
+GROUP BY ct."Level"
+ORDER BY case_count DESC;
+
+
+-- ==============================================
+-- QUERY 10:
+-- List top 5 judges with most experience
+SELECT "ID", "Name", "Position", "Experience", "Qualification"
+FROM JUDGE
+WHERE "Position" = 'Judge'
+ORDER BY CAST(SUBSTRING("Experience", 1, POSITION(' ' IN "Experience") - 1) AS INT) DESC
+LIMIT 5;
+
+
+-- ==============================================
+-- QUERY 11:
+-- List cases with more than 10 hearings
+SELECT c.case_no, c."Name", COUNT(h."Hearing_No") AS hearing_count
+FROM "CASE" c
+JOIN HEARING h ON c.case_no = h.case_no
+GROUP BY c.case_no, c."Name"
+HAVING COUNT(h."Hearing_No") > 10
+ORDER BY hearing_count DESC;
+
+
+-- ==============================================
+-- QUERY 12:
+-- Calculate average number of hearings for each case category
+SELECT c."Category", AVG(hearing_count) AS avg_hearings
+FROM "CASE" c
+JOIN (
+    SELECT case_no, COUNT("Hearing_No") AS hearing_count
+    FROM HEARING
+    GROUP BY case_no
+) h ON c.case_no = h.case_no
+GROUP BY c."Category";
+
+
+-- ==============================================
+-- QUERY 13:
+-- List judges who handle only criminal cases
+SELECT DISTINCT j."ID", j."Name"
+FROM JUDGE j
+JOIN WORKS_FOR wf ON j."ID"    = wf.judge_id
+JOIN HANDLES   ha ON wf.court_id = ha.court_id
+JOIN "CASE"    c  ON ha.case_no  = c.case_no
+WHERE c."Category" = 'Criminal'
+AND j."ID" NOT IN (
+    SELECT DISTINCT j2."ID"
+    FROM JUDGE j2
+    JOIN WORKS_FOR wf2 ON j2."ID"     = wf2.judge_id
+    JOIN HANDLES   ha2 ON wf2.court_id = ha2.court_id
+    JOIN "CASE"    c2  ON ha2.case_no  = c2.case_no
+    WHERE c2."Category" != 'Criminal'
+);
+
+
+-- ==============================================
+-- QUERY 14:
+-- List courts that have no active cases currently
+SELECT ct."ID", ct."Location", ct."Level"
+FROM COURT ct
+WHERE ct."ID" NOT IN (
+    SELECT DISTINCT h.court_id
+    FROM HANDLES h
+    JOIN "CASE" c ON h.case_no = c.case_no
+    WHERE c.curr_status = 'Active'
+);
+
+
+-- ==============================================
+-- QUERY 15:
+-- Find judges who have handled all distinct case categories
+SELECT j."ID", j."Name"
+FROM JUDGE j
+WHERE NOT EXISTS (
+    SELECT DISTINCT c."Category"
+    FROM "CASE" c
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM WORKS_FOR wf
+        JOIN HANDLES   ha ON wf.court_id = ha.court_id
+        JOIN "CASE"    c2 ON ha.case_no  = c2.case_no
+        WHERE wf.judge_id   = j."ID"
+        AND   c2."Category" = c."Category"
+    )
+);
+
+
+-- ==============================================
+-- QUERY 16:
+-- Calculate complexity score
+SELECT
+    c.case_no,
+    c."Name",
+    COALESCE(h.hearing_count,   0) AS total_hearings,
+    COALESCE(p.precedent_count, 0) AS precedents_cited,
+    CASE WHEN cs.is_dormant = TRUE THEN 10 ELSE 0 END AS dormant_penalty,
+    (COALESCE(h.hearing_count,   0) +
+     COALESCE(p.precedent_count, 0) +
+     CASE WHEN cs.is_dormant = TRUE THEN 10 ELSE 0 END) AS complexity_score
+FROM "CASE" c
+LEFT JOIN (
+    SELECT case_no, COUNT("Hearing_No") AS hearing_count
+    FROM HEARING
+    GROUP BY case_no
+) h  ON c.case_no = h.case_no
+LEFT JOIN (
+    SELECT case_no, COUNT(precedent_case_no) AS precedent_count
+    FROM IS_PRECEDENT
+    GROUP BY case_no
+) p  ON c.case_no = p.case_no
+LEFT JOIN CASE_STATUS cs ON c.case_no = cs.case_no
+ORDER BY complexity_score DESC;
+
+
+-- ==============================================
+-- QUERY 17:
+-- Calculate average resolution time per judge
+SELECT
+    j."ID",
+    j."Name",
+    COUNT(DISTINCT c.case_no) AS total_cases_resolved,
+    AVG(EXTRACT(DAY FROM (jmt."Decision_date" - fd."Registration_date"))) AS avg_resolution_days
+FROM JUDGE j
+JOIN WORKS_FOR    wf ON j."ID"      = wf.judge_id
+JOIN HANDLES      ha ON wf.court_id = ha.court_id
+JOIN "CASE"       c  ON ha.case_no  = c.case_no
+JOIN JUDGEMENT    jmt ON c.case_no  = jmt.case_no
+JOIN FILING_DETAILS fd ON c.case_no = fd.case_no
+WHERE c.curr_status = 'Closed'
+GROUP BY j."ID", j."Name"
+HAVING COUNT(DISTINCT c.case_no) > 0
+ORDER BY avg_resolution_days ASC;
+
+
+-- ==============================================
+-- QUERY 18:
+-- Distribution of cases
+SELECT
+    "Jurisdiction_Type",
+    curr_status,
+    COUNT(*) AS case_count,
+    ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (PARTITION BY "Jurisdiction_Type"), 2) AS percentage
+FROM "CASE"
+GROUP BY "Jurisdiction_Type", curr_status
+ORDER BY "Jurisdiction_Type", case_count DESC;
+
+
+-- ==============================================
+-- QUERY 19:
+-- Find most frequent category per judge
+WITH JudgeCaseCounts AS (
+    SELECT
+        j."ID"    AS judge_id,
+        j."Name"  AS judge_name,
+        c."Category",
+        COUNT(DISTINCT c.case_no) AS case_count,
+        ROW_NUMBER() OVER (
+            PARTITION BY j."ID"
+            ORDER BY COUNT(DISTINCT c.case_no) DESC
+        ) AS rn
+    FROM JUDGE j
+    JOIN WORKS_FOR wf ON j."ID"      = wf.judge_id
+    JOIN HANDLES   ha ON wf.court_id = ha.court_id
+    JOIN "CASE"    c  ON ha.case_no  = c.case_no
+    WHERE j."Position" = 'Judge'
+    GROUP BY j."ID", j."Name", c."Category"
+)
+SELECT judge_id, judge_name, "Category" AS primary_specialization, case_count
+FROM JudgeCaseCounts
+WHERE rn = 1
+ORDER BY case_count DESC;
+
+
+-- ==============================================
+-- QUERY 20:
+-- Court statistics
+SELECT
+    ct."ID"    AS court_id,
+    ct."Location",
+    ct."Level",
+    COUNT(DISTINCT wf.judge_id)  AS total_judges,
+    COUNT(DISTINCT ha.case_no)   AS total_cases,
+    COUNT(DISTINCT CASE WHEN c.curr_status = 'Active' THEN ha.case_no END)  AS active_cases,
+    COUNT(DISTINCT CASE WHEN c.curr_status = 'Closed' THEN ha.case_no END)  AS closed_cases,
+    ROUND(AVG(hc.hearing_count), 2) AS avg_hearings_per_case
+FROM COURT ct
+LEFT JOIN WORKS_FOR wf ON ct."ID"    = wf.court_id
+LEFT JOIN HANDLES   ha ON ct."ID"    = ha.court_id
+LEFT JOIN "CASE"    c  ON ha.case_no = c.case_no
+LEFT JOIN (
+    SELECT case_no, COUNT("Hearing_No") AS hearing_count
+    FROM HEARING
+    GROUP BY case_no
+) hc ON ha.case_no = hc.case_no
+GROUP BY ct."ID", ct."Location", ct."Level"
+ORDER BY total_cases DESC;
